@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Festival Cordillera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOMJa2JFSUjYpBYqNhh0AvS1voXmGmrXQ&callback=initMap" async defer></script>
+</head>
+<body>
+    <div class="header">
+        <div class="menu-container">
+            <button class="menu-btn" onclick="toggleSearch()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </button>
+            <div class="search-container" id="searchContainer">
+                <input type="text" id="search" placeholder="Buscar.." />
+            </div>
+        </div>
+        <h1 class="h1">Festival Cordillera</h1>
+    </div>
+    <div id="map"></div>
+
+    <script>
+        function toggleSearch() {
+            var searchBox = document.getElementById("searchContainer");
+            searchBox.style.display = (searchBox.style.display === "flex") ? "none" : "flex";
+        }
+
+        async function initMap() {
+            const mapCenter = { lat: 4.6584, lng: -74.0935 };  // Centro del mapa
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: mapCenter
+            });
+
+            try {
+                const response = await fetch('http://localhost:5199/api/ubicaciones');
+                const ubicaciones = await response.json();
+                ubicaciones.forEach((ubicacion) => {
+                    const place = {
+                        location: {
+                            lat: parseFloat(ubicacion.latitud),
+                            lng: parseFloat(ubicacion.longitud),
+                        },
+                        displayName: ubicacion.nombre,
+                        icon: {
+                            url: "file:///C:/Users/jhonf/Downloads/Captura_de_pantalla_2025-02-15_155957-removebg-preview%20(1).png",
+                            scaledSize: new google.maps.Size(40, 40)
+                        }
+                    };
+
+                    const marker = new google.maps.Marker({
+                        position: place.location,
+                        map,
+                        title: place.displayName,
+                        icon: place.icon
+                    });
+
+                    google.maps.event.addListener(map, 'zoom_changed', function() {
+                        if (map.getZoom() < 15) {
+                            marker.setMap(null);
+                        } else {
+                            marker.setMap(map);
+                        }
+                    });
+                });
+
+            } catch (error) {
+                console.error("Error al obtener datos de la API:", error);
+            }
+        }
+    </script>
+</body>
+</html>
