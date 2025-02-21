@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Festival Cordillera</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,300;1,300&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOMJa2JFSUjYpBYqNhh0AvS1voXmGmrXQ&callback=initMap" async defer></script>
- 
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOMJa2JFSUjYpBYqNhh0AvS1voXmGmrXQ&callback=initMap"
+        async defer></script>
 </head>
+
 <body>
     <div class="header">
         <div class="menu-container">
@@ -27,11 +28,9 @@
                 
             </div>
         </div>
-        <h1  class="h1">Festival Cordillera</h1>
-      
+        <h1 class="h1">Festival Cordillera</h1>
     </div>
     <div id="map"></div>
-
 
     <script>
         function toggleSearch() {
@@ -43,55 +42,69 @@
             var input = document.getElementById("search").value.toLowerCase();
             alert("Función de búsqueda en desarrollo: " + input);
         }
-    </script>
 
-
-
-
-
-
-
-
-
-
-    <script>
         async function initMap() {
             var parqueBolivar = { lat: 4.6584, lng: -74.0935 };
             var map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 15,
                 center: parqueBolivar
             });
-            
+
             try {
-                const place = {
-                    location: { lat: 4.6584, lng: -74.0935 },
-                    displayName: "Parque Simón Bolívar",
-                    icon: {
-                        url: ",
-                        scaledSize: new google.maps.Size(40, 40)
-                    }
-                };
-                
-                const marker = new google.maps.Marker({
-                    position: place.location,
-                    map,
-                    title: place.displayName,
-                    icon: place.icon
+                const lugares = [
+                    { lat: 4.6574, lng: -74.0938, nombre: "Stand de comida 1", icono: "file:///C:/Users/jhonf/Downloads/Captura_de_pantalla_2025-02-21_110029-removebg-preview.png" },
+                    { lat: 4.6579, lng: -74.0935, nombre: "Stand de comida 2", icono: "file:///C:/Users/jhonf/Downloads/Captura_de_pantalla_2025-02-21_110029-removebg-preview.png" },
+                    { lat: 4.6577, lng: -74.0936, nombre: "Stand de comida 3", icono: "file:///C:/Users/jhonf/Downloads/Captura_de_pantalla_2025-02-21_110029-removebg-preview.png" },
+                    { lat: 4.6579, lng: -74.0937, nombre: "Stand de comida 4", icono: "file:///C:/Users/jhonf/Downloads/Captura_de_pantalla_2025-02-21_110029-removebg-preview.png" },
+                    { lat: 4.6578, lng: -74.0936, nombre: "Stand de comida 5", icono: "file:///C:/Users/jhonf/Downloads/Captura_de_pantalla_2025-02-21_110029-removebg-preview.png" },
+
+                    { lat: 4.6581, lng: -74.0935, nombre: "Entrada Principal ", icono: "file:///C:/Users/jhonf/Downloads/Captura_de_pantalla_2025-02-21_111026-removebg-preview.png" },
+                   { lat:  4.6574, lng: -74.0936, nombre: "Salida ", icono: "file:///C:/Users/jhonf/Downloads/Captura_de_pantalla_2025-02-21_111026-removebg-preview.png" },
+                   { lat: 4.6577, lng: -74.0933, nombre: "Entrada Secundaria", icono: "file:///C:/Users/jhonf/Downloads/Captura_de_pantalla_2025-02-21_111026-removebg-preview.png" },
+
+
+                    { lat: 4.6577, lng: -74.0939, nombre: "Escenario 1 ", icono: "file:///C:/Users/jhonf/Downloads/Captura_de_pantalla_2025-02-21_103002-removebg-preview.png" },
+                    { lat: 4.6576, lng: -74.0937, nombre: "Escenario 2", icono: "file:///C:/Users/jhonf/Downloads/Captura_de_pantalla_2025-02-21_103002-removebg-preview.png" },
+                    { lat: 4.6577, lng: -74.0938, nombre: "Escenario 3", icono: "file:///C:/Users/jhonf/Downloads/Captura_de_pantalla_2025-02-21_103002-removebg-preview.png" },
+            
+                    {lat: 4.6577, lng: -74.0937, nombre: "Baños", icono: "file:///C:/Users/jhonf/Downloads/Captura_de_pantalla_2025-02-21_113308-removebg-preview__2_-removebg-preview.png" },           
+                    {lat: 4.6574, lng: -74.0937, nombre: "Baños", icono: "file:///C:/Users/jhonf/Downloads/Captura_de_pantalla_2025-02-21_113308-removebg-preview__2_-removebg-preview.png" },     
+       
+
+                ];
+
+                lugares.forEach(lugar => {
+                    var marker = new google.maps.Marker({
+                        position: { lat: lugar.lat, lng: lugar.lng },
+                        map: map,
+                        title: lugar.nombre,
+                        icon: {
+                            url: lugar.icono,
+                            scaledSize: new google.maps.Size(40, 40)
+                        }
+                    });
+                    google.maps.event.addListener(map, 'zoom_changed', function () {
+                        if (map.getZoom() < 15) {
+                            marker.setMap(null);
+                        } else {
+                            marker.setMap(map);
+                        }
+                    });
+
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: `<h3>${lugar.nombre}</h3>`
+                    });
+
+                    marker.addListener("click", function () {
+                        infoWindow.open(map, marker);
+                    });
                 });
-                
-                // Ocultar marcador cuando el zoom es menor a 13
-                google.maps.event.addListener(map, 'zoom_changed', function() {
-                    if (map.getZoom() < 15) {
-                        marker.setMap(null);
-                    } else {
-                        marker.setMap(map);
-                    }
-                });
-                
+
             } catch (error) {
                 console.error("Error al obtener datos del lugar:", error);
             }
         }
     </script>
 </body>
+
 </html>
